@@ -1,8 +1,38 @@
 [package]
 name = "tilor-xp"
-version = "0.1.0"
+description = "Activate X-Plane ortho tiles for a specific flight plan only."
+authors = ["Roman Geber <dlz9zxdkjptu@romangeber.com>"]
+license = "MIT"
+repository = "https://code.geber.io/romangeber/tilor-xp"
+version = "1.0.0"
 edition = "2021"
+default-run = "tilor-xp"
+rust-version = "1.71.0"
+
+[profile.dev]
+codegen-units = 128
+debug = true
+debug-assertions = true
+incremental = true
+lto = false
+opt-level = 0
+overflow-checks = true
+panic = 'unwind'
+rpath = false
+split-debuginfo = '...'  # Platform-specific.
+
+[profile.release]
+codegen-units = 1 # Compile crates one after another so the compiler can optimize better
+lto = true # Enables link to optimizations
+opt-level = 3 # Optimize for binary size
+panic = "abort" # Strip expensive panic clean-up logic
+strip = true # Remove debug symbols
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+anyhow = { version = "1.0.75" }
+clap = { version = "4.4.8", features = ['derive'] }
+itertools = { version = "0.12.0" }
+symlink = { version = "0.1.0" }
+thiserror = { version = "1.0.50" }
